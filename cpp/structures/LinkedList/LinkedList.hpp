@@ -4,6 +4,7 @@
 struct LinkedList {
   LinkedList(int);
   LinkedList(Node *);
+  LinkedList(int *, size_t size);
   LinkedList(const LinkedList &);
   ~LinkedList();
   
@@ -13,6 +14,9 @@ struct LinkedList {
   bool remove(int);
   void add(int);
   Node * returnHead();
+  bool update(int, int);
+  void print();
+  void println();
 
 private:
   Node * head;

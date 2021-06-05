@@ -1,6 +1,6 @@
-struct Node
-{
-  Node(int data_) : data(data_) {}
-  int data;
-  Node * next = nullptr;
+struct Node {
+  Node() {}
+  Node(int val_) : val(val_), next(nullptr) {}
+  int val;
+  Node *next;  
 };
