@@ -1,4 +1,4 @@
-const mergeSort = (arr) => {
+export const mergeSort = (arr) => {
   if (arr.length < 2) return arr;
   const [l , r, mid] = [0, arr.length, Math.floor(arr.length / 2)];
 
@@ -25,6 +25,3 @@ if (process.argv.length > 2) {
     mergeSort(process.argv.slice(2,))
   )
 }
-
-
-module.exports = mergeSort;

@@ -1,6 +1,6 @@
 /* Won't work with objects and other structured data */
 
-function removeDuplicatesO_n(arr) {
+export const removeDuplicatesO_n = (arr) => {
 	const hashMap = {};
 	const newArr = [];
 
@@ -13,5 +13,3 @@ function removeDuplicatesO_n(arr) {
 
 	return newArr;
 }
-
-module.exports = removeDuplicatesO_n;

@@ -4,8 +4,10 @@
 // [1,4,3,2] => "1-4"
 // [1,4] => "1,4"
 
-const stringRange = (arr) => {
-  const sorted = [...arr].sort((a, b) => a - b);
+export const stringRange = (arr) => {
+  const sorted = [...arr];
+  sorted.sort((a, b) => a - b);
+
   const groups = [];
 
   let groupStart = null;
@@ -29,5 +31,3 @@ const stringRange = (arr) => {
 
   return groups.join(', ');
 };
-
-module.exports = stringRange;

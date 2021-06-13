@@ -4,7 +4,7 @@
 
 
 // Random arrays of length with 10000 in 100 cycles ~~  1842 ms 
-const intersection = (a1, a2) => {
+export const intersection = (a1, a2) => {
   const hashMap = [];
   const result = [];
   for (let i = 0; i < a1.length; i++)
@@ -17,7 +17,7 @@ const intersection = (a1, a2) => {
 }
 
 // Random arrays of length with 10000 in 100 cycles ~~  9034 ms
-const slowIntersection = (a1, a2) => 
+export const slowIntersection = (a1, a2) => 
  a1.filter((item) => a2.includes(item));
 
 const generateArr = (n) => {
@@ -26,6 +26,3 @@ const generateArr = (n) => {
     res.push(Math.random());
   return res;
 };
-
-
-module.exports = { intersection, slowIntersection };
