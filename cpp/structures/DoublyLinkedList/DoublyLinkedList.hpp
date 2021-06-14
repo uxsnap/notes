@@ -15,10 +15,9 @@ struct DoublyLinkedList {
 
   DNode * find(int);
 
-  bool insert_after(int, int);
-  bool insert_before(int, int);
+  void insert_into(int, int);
 
-  bool remove(int);
+  void remove_at(int);
 
   void print_front();
   void println_front();
@@ -28,4 +27,5 @@ struct DoublyLinkedList {
 private:
   DNode * head = nullptr;
   DNode * tail = nullptr;
+  int size;
 };

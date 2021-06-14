@@ -44,6 +44,12 @@ DoublyLinkedList::~DoublyLinkedList() {
   
 void DoublyLinkedList::add_back(int val) {
   DNode *tmp = new DNode(val);
+  size++;
+  if (!tail) {
+      tail = tmp;
+      if (!head) head = tmp;
+      return;
+  }
   tail->next = tmp;
   tmp->prev = tail;
   tail = tmp;
@@ -51,6 +57,12 @@ void DoublyLinkedList::add_back(int val) {
 
 void DoublyLinkedList::add_front(int val) {
   DNode *tmp = new DNode(val);
+  size++;
+  if (!head) {
+      head = tmp;
+      if (!tail) tail = tmp;
+      return;
+  }
   head->prev = tmp;
   tmp->next = head;
   head = tmp;
@@ -74,64 +86,54 @@ DNode * DoublyLinkedList::find(int elem) {
   return nhead;
 }
 
-bool DoublyLinkedList::insert_after(int elem, int val) {
-  DNode * nhead = find(elem);
-  if (!nhead) return 0;
-  DNode * tmp = new DNode(val);
-  tmp->next = nhead->next;
-  tmp->prev = nhead;
-  if (tmp->next != nullptr) {
-      tmp->next->prev = tmp;
-  } else { delete tmp; add_back(val); }
-  nhead->next = tmp; 
-  return 1;
-}
-
-bool DoublyLinkedList::insert_before(int elem, int val) {
-  DNode * nhead = find(elem);
-  if (!nhead) return 0;
-  DNode * tmp = new DNode(val);
-  tmp->prev = nhead->prev;
-  tmp->next = nhead;
-  if (tmp->prev != nullptr) {
-      tmp->prev->next = tmp;
-  } else { delete tmp; add_front(val); }
-  nhead->prev = tmp;
-  return 1;
-}
-  
-bool DoublyLinkedList::remove(int val) {
-  if (head->val == val) {
-    DNode * tmp = head;
-    head->next->prev = nullptr;
-    head = head->next;
-    delete tmp;
-    return 1;
-  }  
-  
-  if (tail->val == val) {
-    DNode * tmp = tail;
-    tail->prev->next = nullptr;
-    tail = tail->prev;
-    delete tmp;
-    return 1;
-  }
-  
-  DNode *prev = nullptr;
+void DoublyLinkedList::insert_into(int index, int val) {
+  if (index == 0) return add_front(val);
+  if (index == size) return add_back(val);
+  DNode *tmp = new DNode(val);
   DNode *nhead = head;
-  while (nhead != nullptr && nhead->val != val) {
-     prev = nhead;
-     nhead = nhead->next;
+  for (int i = 0; nhead != nullptr; nhead = nhead->next, i++) {
+      if (i == index - 1) {
+          DNode *nn = nhead->next; 
+          nn->prev = tmp; 
+          nhead->next = tmp;
+          tmp->prev = nhead;
+          tmp->next = nn;
+          size++;
+          return;
+      }
   }
+}
   
-  if (!nhead) return 0;
-  
-  DNode * tmp = nhead;
-  nhead = nhead->next;
-  prev->next = nhead;
-  nhead->prev = prev;
-  delete tmp;
-  return 1;
+void DoublyLinkedList::remove_at(int index) {
+  if ((index >= size) || (index < 0)) return;
+  if (index == 0) {
+      if (head == nullptr) return;
+      DNode *tmp = head;
+      head = tmp->next;
+      delete tmp;
+      size--;
+      return;
+  }
+  if (index == size - 1) {
+    if (tail == nullptr) return;
+    DNode *tmp = tail;
+    tail = tmp->prev;
+    delete tmp;
+    size--;
+    return;
+  }
+  DNode *tmp = head->next;
+  for (int i = 1; tmp != nullptr; tmp = tmp->next, i++) {
+    if (i == index) {
+      DNode *prev = tmp->prev;
+      DNode *next = tmp->next;
+      prev->next = next;
+      next->prev = prev;
+      delete tmp;
+      size--;
+      return;
+    }
+  }
 }
   
 void DoublyLinkedList::print_front() {
