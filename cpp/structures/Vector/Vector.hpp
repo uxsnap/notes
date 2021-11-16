@@ -10,14 +10,13 @@ struct Vector {
   int insert(int, int);
   void prepend(int);
   int pop();
-  int delete_at(int);
+  void delete_at(int);
   int remove(int);
   int find(int);
-  int resize(int);
-
   void print();
 
 private:
+  void resize(int);
   int *_arr;
   int _capacity;
   int _size;

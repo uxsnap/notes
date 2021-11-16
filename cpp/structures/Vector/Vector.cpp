@@ -1,4 +1,4 @@
-#include "Vector.hpp";
+#include "Vector.hpp"
 
 Vector::Vector(int *arr, int size) {
   _size = size;
@@ -18,10 +18,10 @@ Vector::~Vector() {
 int Vector::size() { return _size; }
 int Vector::capacity() { return _capacity; }
 bool Vector::is_empty() { return !_size; }
-int Vector::resize(int nsize) {
+void Vector::resize(int nsize) {
   if (_capacity > nsize) 
   {
-    return _capacity;
+    return;
   }
 
   int *narr = new int[nsize];
@@ -33,8 +33,6 @@ int Vector::resize(int nsize) {
   _arr = narr;
   
   _capacity = nsize;
-  
-  return _capacity;
 }
 
 int Vector::at(int ind) {
@@ -73,4 +71,25 @@ int Vector::insert(int index, int elem) {
   _arr[index] = elem;
 
   return index;
+}
+
+void Vector::prepend(int item) {
+  insert(0, item);
+}
+
+int Vector::pop() {
+    if (is_empty()) throw runtime_error("empty array");
+    
+    return _arr[--_size];
+}
+
+void Vector::delete_at(int index) {
+  if (index > _size || index < 0) return;
+
+  for (int i = index; i < _size + 1; i++)
+  {
+    _arr[i] = _arr[i + 1];
+  }
+  
+  _size--;
 }
