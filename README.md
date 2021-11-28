@@ -1,4 +1,4 @@
 # Notes
 
-Snippets and other stuff i found interesting
-and decided to write it down
+Тут валяются куски кода с интересными решенными задачами
+и снипетами, которые использовались на работе
