@@ -12,7 +12,6 @@
 
 */
 
-
 const subsetSumRecursive = (arr, sum) => {
   let n = arr.length;
   const dp = Array(n + 1);
