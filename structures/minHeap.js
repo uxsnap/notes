@@ -13,33 +13,32 @@ class MinHeap {
   }
 
   // O(log(n)) time | O(1) space
-  siftDown(currentIdx, endIdx, heap) {
+  siftDown(currentIdx, endIdx) {
     let childOneIdx = currentIdx * 2 + 1;
     while (childOneIdx <= endIdx) {
       const childTwoIdx =
         currentIdx * 2 + 2 <= endIdx ? currentIdx * 2 + 2 : -1;
       let idxToSwap;
-      if (childTwoIdx !== -1 && heap[childTwoIdx] < heap[childOneIdx]) {
+      if (childTwoIdx !== -1 && this.heap[childTwoIdx] < this.heap[childOneIdx]) {
         idxToSwap = childTwoIdx;
       } else {
         idxToSwap = childOneIdx;
       }
 
-      if (heap[idxToSwap] < heap[currentIdx]) {
-        this.swap(currentIdx, idxToSwap, heap);
+      if (this.heap[idxToSwap] < this.heap[currentIdx]) {
+        this.swap(currentIdx, idxToSwap);
         currentIdx = idxToSwap;
         childOneIdx = currentIdx * 2 + 1;
-      } else {
-        return;
       }
     }
   }
 
   // O(log(n)) time | O(1) space
-  siftUp(currentIdx, heap) {
+  siftUp(currentIdx) {
     let parentIdx = Math.floor((currentIdx - 1) / 2);
-    while (currentIdx > 0 && heap[currentIdx] < heap[parentIdx]) {
-      this.swap(currentIdx, parentIdx, heap);
+
+    while (currentIdx > 0 && this.heap[currentIdx] < this.heap[parentIdx]) {
+      this.swap(currentIdx, parentIdx);
       currentIdx = parentIdx;
       parentIdx = Math.floor((currentIdx - 1) / 2);
     }
@@ -52,19 +51,19 @@ class MinHeap {
 
   // O(log(n)) time | O(1) space
   remove() {
-    this.swap(0, this.heap.length - 1, this.heap);
+    this.swap(0, this.heap.length - 1);
     const valueToRemove = this.heap.pop();
-    this.siftDown(0, this.heap.length - 1, this.heap);
+    this.siftDown(0, this.heap.length - 1);
     return valueToRemove;
   }
 
   // O(log(n)) time | O(1) space
   insert(value) {
     this.heap.push(value);
-    this.siftUp(this.heap.length - 1, this.heap);
+    this.siftUp(this.heap.length - 1);
   }
 
-  swap(i, j, heap) {
-    [heap[i], heap[j]] = [heap[j], heap[i]];
+  swap(i, j) {
+    [this.heap[i],this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 }
